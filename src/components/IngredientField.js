@@ -1,12 +1,25 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, useEffect, useRef, ChangeEvent } from 'react';
 
 export const IngredientField = ({ ingredients, addIngredient, removeIngredient }) => {
   // Track the user input
-  const [userInput, setUserInput] = useState(' ');
+  const [userInput, setUserInput] = useState('');
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
   };
+
+  const ingredientsRef = useRef();
+
+  const scrollToBottom = () => {
+    if (ingredientsRef.current) {
+      ingredientsRef.current.scrollTop = ingredientsRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    // Scroll to bottom of ingredient list when new ingredients are added
+    scrollToBottom();
+  }, [ingredients]);
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' || e.key === ',') {
@@ -32,7 +45,7 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
         value={userInput}
       />
 
-      <div className="flex flex-row flex-wrap gap-3 mt-4 max-h-28 overflow-y-scroll">
+      <div className="flex flex-row flex-wrap gap-3 mt-4 max-h-40 overflow-y-scroll" ref={ingredientsRef}>
         {ingredients.map((ingredient, index) => (
           <span
             key={`${index}-${ingredient}`}
