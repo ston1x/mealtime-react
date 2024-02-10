@@ -9,7 +9,7 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
 
       if (userInput.trim() !== '') {
@@ -21,6 +21,7 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
 
   return (
     <div className="flex flex-col w-[300px] md:w-[400px]">
+      <p className="text-sm py-4 text-gray-600">Add comma-separated ingredients</p>
       <input
         name="keyword_ingredients"
         type="text"
@@ -31,7 +32,7 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
         value={userInput}
       />
 
-      <div className="flex flex-row flex-wrap gap-3 mt-4">
+      <div className="flex flex-row flex-wrap gap-3 mt-4 max-h-28 overflow-y-scroll">
         {ingredients.map((ingredient, index) => (
           <span
             key={`${index}-${ingredient}`}
