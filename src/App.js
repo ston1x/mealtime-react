@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
+import './App.css';
 import useIngredientInput from './hooks/useIngredient';
 import IngredientField from './components/IngredientField';
-import './App.css';
+import RecipesList from './components/RecipesList';
 import recipeService from './services/recipeService';
 
 function App() {
   // Retrieve all returned items from the hook
   const { ingredients, handleAddIngredient, handleRemoveIngredient } = useIngredientInput();
+  const [recipes, setRecipes] = useState([]);
 
   // Handle form submission
   const handleSubmit = async () => {
     try {
       const response = await recipeService.searchRecipes(ingredients);
-      console.log(response.data);
+      setRecipes(response.data);
     } catch (error) {
       console.error('Error: ', error);
     }
@@ -23,8 +25,8 @@ function App() {
       <h1 className="text-6xl pt-6 pb-4 font-black text-center bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
         Dinner time ✨
       </h1><span className='text-6xl'></span>
-      <section className="h-screen w-screen flex justify-center gap-y-4">
-        <form>
+      <section className="w-screen flex justify-center gap-y-4">
+        <section>
           <IngredientField
             ingredients={ingredients}
             addIngredient={handleAddIngredient}
@@ -37,8 +39,10 @@ function App() {
           >
             Search recipes
           </button>
-        </form>
+        </section>
       </section>
+
+      <RecipesList recipes={recipes} />
     </div>
   );
 }
