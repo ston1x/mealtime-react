@@ -3,17 +3,30 @@ import { useState } from  'react';
 export const RecipesList = ({ recipes }) => {
   const [userInput, setUserInput] = useState('');
 
+  // TODO: Open a modal to display the recipe's ingredients
+  const openRecipeModal = async (recipe) => {
+    alert(recipe.ingredients);
+  };
+
   return(
     <section>
-      <div className="mt-4">
+      <div className="mt-4 flex flex-wrap justify-center dark:bg-slate-900">
         {recipes.map((recipe, index) => (
-          <div key={index}>
+          <div key={index} href="#" onClick={() => openRecipeModal(recipe)} className="cursor-pointer block max-w-sm mx-4 my-8 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 place-items-center">
             {/* Render individual recipe information */}
-            <h3 className="text-3xl font-medium">{recipe.name}</h3>
-            <p>{recipe.ingredients}</p>
-            <p>Prep time: {recipe.prep_time}</p>
-            <p>Difficulty: {recipe.difficulty}</p>
-            {/* Add more details as needed */}
+            <img className="rounded-lg inline-block mb-4" src={recipe.image} alt={recipe.image} />
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{recipe.title}</h5>
+            <span className="bg-yellow-100 text-yellow-800 text-s font-medium me-2 mx-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
+                {recipe.category}
+            </span>
+            <div className='font-bold dark:text-white'>
+              Match: {(recipe.score * 100).toFixed(2)}% • 
+              ⭐️ {recipe.ratings}
+              <p>Prep time: {recipe.prep_time}</p>
+              <p>Cook time: {recipe.cook_time}</p>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+              </p>
+            </div>
           </div>
         ))}
       </div>

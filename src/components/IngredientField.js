@@ -34,12 +34,12 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
 
   return (
     <div className="flex flex-col w-[300px] md:w-[400px]">
-      <p className="text-sm py-4 text-gray-600">Add comma-separated ingredients</p>
+      <p className="text-sm py-4 text-gray-600 dark:text-gray-400">What's at your disposal? Add comma-separated ingredients</p>
       <input
         name="keyword_ingredients"
         type="text"
         placeholder="Add an ingredient"
-        className="w-full border rounded-full border-gray-300 rounded-md px-4 py-2"
+        className="w-full border rounded-full dark:bg-slate-700 dark:text-white border-gray-300 dark:border-gray-800 rounded-md px-4 py-2"
         onKeyDown={handleKeyPress}
         onChange={handleInputChange}
         value={userInput}
@@ -49,7 +49,7 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
         {ingredients.map((ingredient, index) => (
           <span
             key={`${index}-${ingredient}`}
-            className="inline-flex items-start justify-start px-3 py-2 rounded-[32px] text-sm shadow-sm font-medium bg-blue-100 text-blue-800 mr-2"
+            className="inline-flex items-start justify-start px-3 py-2 rounded-[32px] text-sm shadow-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-sky-100 mr-2"
           >
             {ingredient}
             <button

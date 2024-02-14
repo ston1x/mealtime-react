@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
 const useIngredientInput = () => {
-  const [ingredients, setIngredients] = useState([]);
+  const default_ingredients = ['milk', 'flour', 'sugar', 'salt', 'water', 'butter', 'oil', 'eggs'];
+  const [ingredients, setIngredients] = useState(default_ingredients);
 
   // Function to handle adding the ingredient to the array
   const handleAddIngredient = (ingredient) => {

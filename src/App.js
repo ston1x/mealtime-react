@@ -9,11 +9,14 @@ function App() {
   // Retrieve all returned items from the hook
   const { ingredients, handleAddIngredient, handleRemoveIngredient } = useIngredientInput();
   const [recipes, setRecipes] = useState([]);
+  const [orderBy, setOrderBy] = useState('relevance'); // Default order by relevance
+  const [orderDirection, setOrderDirection] = useState('asc'); // Default order direction ascending
+
 
   // Handle form submission
   const handleSubmit = async () => {
     try {
-      const response = await recipeService.searchRecipes(ingredients);
+      const response = await recipeService.searchRecipes(ingredients, orderBy);
       setRecipes(response.data);
     } catch (error) {
       console.error('Error: ', error);
@@ -21,7 +24,7 @@ function App() {
   };
 
   return (
-    <div className="App py-4">
+    <div className="App py-4 h-screen dark:bg-slate-900">
       <h1 className="text-6xl pt-6 pb-4 font-black text-center bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
         Dinner time ✨
       </h1><span className='text-6xl'></span>
