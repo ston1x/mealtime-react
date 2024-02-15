@@ -16,10 +16,8 @@ export const RecipesList = ({ recipes, orderDirection }) => {
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{recipe.title}</h5>
             <span className="bg-yellow-100 text-yellow-800 text-s font-medium me-2 mx-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">
                 {recipe.category}
-            </span>
+          </span>  <span className='font-bold dark:text-white'>⭐️ {recipe.ratings}</span>
             <div className='font-bold dark:text-white'>
-              Match: {(recipe.score * 100).toFixed(2)}% • 
-              ⭐️ {recipe.ratings}
               <p>Prep time: {recipe.prep_time}</p>
               <p>Cook time: {recipe.cook_time}</p>
               <ul className="list-disc font-normal text-left text-gray-700 dark:text-gray-400">
