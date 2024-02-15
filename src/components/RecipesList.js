@@ -1,12 +1,15 @@
 import { useState } from  'react';
 
-export const RecipesList = ({ recipes }) => {
+export const RecipesList = ({ recipes, orderDirection }) => {
   const [userInput, setUserInput] = useState('');
+  const list = (recipes, orderDirection) => {
+    return orderDirection === 'desc' ? recipes : recipes.slice().reverse();
+  }
 
   return(
     <section>
       <div className="mt-4 flex flex-wrap justify-center dark:bg-slate-900">
-        {recipes.map((recipe, index) => (
+        { list(recipes, orderDirection).map((recipe, index) => (
           <div key={index} href="#" className="block max-w-sm mx-4 my-8 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 place-items-center">
             {/* Render individual recipe information */}
             <img className="rounded-lg inline-block mb-4" src={recipe.image} alt={recipe.image} />
