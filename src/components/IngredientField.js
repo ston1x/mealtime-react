@@ -33,13 +33,13 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
   };
 
   return (
-    <div className="flex flex-col w-[300px] md:w-[400px]">
+    <div className="flex flex-col w-[350px] md:w-[400px] items-center justify-center text-center">
       <p className="text-sm py-4 text-gray-600 dark:text-gray-400">What's at your disposal? Add comma-separated ingredients</p>
       <input
         name="keyword_ingredients"
         type="text"
         placeholder="Add an ingredient"
-        className="w-full border dark:bg-slate-700 dark:text-white border-gray-300 dark:border-gray-800 rounded-md px-4 py-2"
+        className="w-full border dark:bg-slate-700 dark:text-white border-gray-300 dark:border-gray-800 rounded-md px-4 py-2 ml-1"
         onKeyDown={handleKeyPress}
         onChange={handleInputChange}
         value={userInput}
