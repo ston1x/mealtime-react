@@ -34,7 +34,9 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
 
   return (
     <div className="flex flex-col w-[350px] md:w-[400px] items-center justify-center text-center">
-      <p className="text-sm py-4 text-gray-600 dark:text-gray-400">What's at your disposal? Add comma-separated ingredients</p>
+      <p className="text-sm py-4 text-gray-600 dark:text-gray-400">
+        What's at your disposal? Add comma-separated ingredients
+      </p>
       <input
         name="keyword_ingredients"
         type="text"
@@ -45,7 +47,10 @@ export const IngredientField = ({ ingredients, addIngredient, removeIngredient }
         value={userInput}
       />
 
-      <div className="flex flex-row flex-wrap gap-3 mt-4 max-h-40 overflow-y-scroll" ref={ingredientsRef}>
+      <div
+        className="flex flex-row flex-wrap gap-3 mt-4 max-h-40 overflow-y-scroll"
+        ref={ingredientsRef}
+      >
         {ingredients.map((ingredient, index) => (
           <span
             key={`${index}-${ingredient}`}
