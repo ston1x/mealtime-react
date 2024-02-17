@@ -9,6 +9,7 @@ function App() {
   // Retrieve all returned items from the hook
   const { ingredients, handleAddIngredient, handleRemoveIngredient } = useIngredientInput();
   const [recipes, setRecipes] = useState([]);
+  const [recipesRequestError, setREcipesRequestError] = useState(null);
   const [orderBy, setOrderBy] = useState('relevance'); // Default order by relevance
   const [orderDirection, setOrderDirection] = useState('desc'); // Default order direction ascending
 
@@ -25,8 +26,9 @@ function App() {
     try {
       const response = await recipeService.searchRecipes(ingredients, orderBy);
       setRecipes(response.data);
+      setREcipesRequestError(null);
     } catch (error) {
-      console.error('Error: ', error);
+      setREcipesRequestError('💔 There was a problem connecting to the server');
     }
   };
 
@@ -77,13 +79,14 @@ function App() {
 
           <button
             onClick={handleSubmit}
-            className="button w-full inline-flex justify-center rounded-full border border-transparent bg-indigo-600 py-3 px-4 text-lg font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="button transition duration-150 ease-in-out w-full inline-flex justify-center rounded-full border border-transparent bg-indigo-600 py-3 px-4 text-lg font-bold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Search recipes
           </button>
         </section>
       </section>
 
+      <div className={`text-gray-500 text-lg font-medium py-4 transition-opacity duration-500 ease-in-out ${recipesRequestError ? 'opacity-100' : 'opacity-0'}`}> {recipesRequestError}</div>
       <RecipesList recipes={recipes} orderDirection={orderDirection} />
     </div>
   );
