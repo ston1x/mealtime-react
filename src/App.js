@@ -9,7 +9,8 @@ function App() {
   // Retrieve all returned items from the hook
   const { ingredients, handleAddIngredient, handleRemoveIngredient } = useIngredientInput();
   const [recipes, setRecipes] = useState([]);
-  const [recipesRequestError, setREcipesRequestError] = useState(null);
+  const [recipesLoading, setRecipesLoading] = useState(false); // Default loading state to false
+  const [recipesRequestError, setREcipesRequestError] = useState(null); // Default error state to null
   const [orderBy, setOrderBy] = useState('relevance'); // Default order by relevance
   const [orderDirection, setOrderDirection] = useState('desc'); // Default order direction ascending
 
@@ -24,11 +25,14 @@ function App() {
   // Handle form submission
   const handleSubmit = async () => {
     try {
+      setRecipesLoading(true);
       const response = await recipeService.searchRecipes(ingredients, orderBy);
       setRecipes(response.data);
       setREcipesRequestError(null);
     } catch (error) {
       setREcipesRequestError('💔 There was a problem connecting to the server');
+    } finally {
+      setRecipesLoading(false);
     }
   };
 
@@ -86,8 +90,12 @@ function App() {
         </section>
       </section>
 
-      <div className={`text-gray-500 text-lg font-medium py-4 transition-opacity duration-500 ease-in-out ${recipesRequestError ? 'opacity-100' : 'opacity-0'}`}> {recipesRequestError}</div>
-      <RecipesList recipes={recipes} orderDirection={orderDirection} />
+      { recipesRequestError !== null ? (
+        <div className='text-gray-500 text-lg font-medium py-4'>
+           {recipesRequestError}
+        </div>
+        ) : (<RecipesList recipes={recipes} orderDirection={orderDirection} />)
+      }
     </div>
   );
 }
